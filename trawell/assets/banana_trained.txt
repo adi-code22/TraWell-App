@@ -1,0 +1,3 @@
+0 banana_black_sigatoka
+1 banana_bacterial_wilt
+2 banana_healthy
