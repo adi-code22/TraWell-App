@@ -223,6 +223,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Text(
                           "Thrissur",
+                          //place.subAdministrativeArea.toString(),
                           style: GoogleFonts.poppins(
                               fontSize: 23,
                               color: Colors.white,
@@ -237,6 +238,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             Text(
                               "680009",
+                              //place.postalCode.toString(),
                               style: GoogleFonts.poppins(
                                   fontSize: 13,
                                   color: Colors.white,
@@ -301,7 +303,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   backgroundColor: Colors.transparent,
                                   child: BackdropFilter(
                                     filter: ImageFilter.blur(
-                                        sigmaX: 2.0, sigmaY: 2.0),
+                                        sigmaX: 5.0, sigmaY: 5.0),
                                     child: Container(
                                         decoration: BoxDecoration(
                                           color: Colors.white.withOpacity(0.6),
@@ -403,14 +405,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     const SizedBox(
                       width: 15,
                     ),
-                    ShadowButton(
-                        sname: "Native",
-                        fname: "Locate",
-                        icon: Icon(
-                          Icons.travel_explore_rounded,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        fsize: 11),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LocateNative()));
+                      },
+                      child: ShadowButton(
+                          sname: "Native",
+                          fname: "Locate",
+                          icon: Icon(
+                            Icons.travel_explore_rounded,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          fsize: 11),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -419,14 +429,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    ShadowButton(
-                        fname: 'Suggest',
-                        sname: "Plan",
-                        icon: Icon(
-                          Icons.auto_graph_rounded,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        fsize: 11),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SuggestPlan(),
+                            ));
+                      },
+                      child: ShadowButton(
+                          fname: 'Suggest',
+                          sname: "Plan",
+                          icon: Icon(
+                            Icons.auto_graph_rounded,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          fsize: 11),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -468,79 +487,63 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     width: 350,
                     alignment: FractionalOffset.center,
-                    height: 475,
+                    height: 420,
                     padding: const EdgeInsets.all(20.0),
-                    child: Column(children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 150,
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //       color: Colors.blue,
-                          //       borderRadius: BorderRadius.circular(16)),
-                          //   width: 130,
-                          //   height: 200,
-                          //   child: Builder(
-                          //     builder: (context) {
-                          //       return Container(
-                          //         child: Image(
-                          //             image: NetworkImage(
-                          //                 "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg")),
-                          //       );
-                          //     }
-                          //   ),
-                          // )
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Colors.black,
-                            ),
-                            width: 150,
-                            height: 220,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(16),
-                                      color: Colors.blue,
-                                      image: DecorationImage(
-                                        fit: BoxFit.fill,
-                                        image: NetworkImage(
-                                            "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg"),
-                                      )),
-                                  width: 135,
-                                  height: 160,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Coconut Oil"),
-                                    Text(
-                                      "250 ml",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      )
-                    ])),
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 150,
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Container(
+                            //   decoration: BoxDecoration(
+                            //       color: Colors.blue,
+                            //       borderRadius: BorderRadius.circular(16)),
+                            //   width: 130,
+                            //   height: 200,
+                            //   child: Builder(
+                            //     builder: (context) {
+                            //       return Container(
+                            //         child: Image(
+                            //             image: NetworkImage(
+                            //                 "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg")),
+                            //       );
+                            //     }
+                            //   ),
+                            // )
+                            marketCard(
+                                url:
+                                    "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg",
+                                name: "Coconut Oil",
+                                sub: "250 ml"),
+                            marketCard(
+                                url:
+                                    "https://m.media-amazon.com/images/I/71l5T4sy6QL._UL1500_.jpg",
+                                name: "Slipper",
+                                sub: "Thrissur"),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            marketCard(
+                                url:
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc7aQH_vy7yfJ7xrmVSnDh9mKr93HXdHtj5A&usqp=CAU",
+                                name: "Soap",
+                                sub: "Irinjalakuda")
+                          ],
+                        )
+                      ]),
+                    )),
 
                 SizedBox(height: 00),
 
@@ -925,6 +928,69 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class marketCard extends StatefulWidget {
+  const marketCard(
+      {Key? key, required this.url, required this.name, required this.sub})
+      : super(key: key);
+
+  final String url;
+  final String name;
+  final String sub;
+  @override
+  State<marketCard> createState() => _marketCardState();
+}
+
+class _marketCardState extends State<marketCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.black,
+      ),
+      width: 150,
+      height: 230,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: Colors.blue,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(widget.url),
+                )),
+            width: 135,
+            height: 160,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                widget.name,
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                widget.sub,
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class ShadowButton extends StatefulWidget {
   const ShadowButton(
       {Key? key,
@@ -950,6 +1016,7 @@ class _ShadowButtonState extends State<ShadowButton> {
       height: 50,
       width: 105,
       decoration: BoxDecoration(
+        border: Border.all(color: Theme.of(context).primaryColorLight),
         borderRadius: BorderRadius.circular(6),
         color: Colors.white,
         boxShadow: [

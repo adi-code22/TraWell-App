@@ -47,67 +47,170 @@ List<Item> generateItems() {
 
 class _SuggestPlanState extends State<SuggestPlan> {
   final List<Item> _data = generateItems();
+  int imga = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: RichText(
-            text: TextSpan(
-                style: GoogleFonts.poppins(
-                    fontSize: 30, fontWeight: FontWeight.bold),
-                children: [
-              TextSpan(
-                  text: "Suggest",
-                  style: GoogleFonts.poppins(
-                      color: Theme.of(context).primaryColorLight)),
-              TextSpan(
-                  text: "Plan",
-                  style: GoogleFonts.poppins(
-                      color: Theme.of(context).primaryColor)),
-            ])),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   title: RichText(
+      //       text: TextSpan(
+      //           style: GoogleFonts.poppins(
+      //               fontSize: 30, fontWeight: FontWeight.bold),
+      //           children: [
+      //         TextSpan(
+      //             text: "Suggest",
+      //             style: GoogleFonts.poppins(
+      //                 color: Theme.of(context).primaryColorLight)),
+      //         TextSpan(
+      //             text: "Plan",
+      //             style: GoogleFonts.poppins(
+      //                 color: Theme.of(context).primaryColor)),
+      //       ])),
+      //   centerTitle: true,
+      //   elevation: 0,
+      // ),
+      body: SafeArea(
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Text(
-                "Choose your perfect plan!",
-                style: TextStyle(color: Colors.black, fontSize: 25),
+            Column(
+              children: [
+                Container(
+                  height: 680,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        opacity: 0.55,
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/bg.png")),
+                  ),
+                ),
+
+                // ColorFiltered(
+                //     colorFilter: ColorFilter.mode(
+                //         Colors.white.withOpacity(0.5), BlendMode.dstATop),
+                //     child: Image.asset("assets/bg.png")),
+              ],
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Colors.black,
+                          )),
+                      //
+                      //const DesName(fname: "Scan", sname: "Monument", size: 25),
+                      RichText(
+                          text: TextSpan(
+                              style: GoogleFonts.poppins(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                              children: [
+                            TextSpan(
+                                text: "Suggest",
+                                style: GoogleFonts.poppins(
+                                    color:
+                                        Theme.of(context).primaryColorLight)),
+                            TextSpan(
+                                text: "Plan",
+                                style: GoogleFonts.poppins(
+                                    color: Theme.of(context).primaryColor)),
+                          ])),
+                      Container(
+                        height: 50,
+                        width: 50,
+                        child: Image.asset("assets/logo.png"),
+                      )
+                    ],
+                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(18.0),
+                  //   child: Text(
+                  //     "Choose your perfect plan!",
+                  //     style: TextStyle(color: Colors.black, fontSize: 25),
+                  //   ),
+                  // ),
+                  // ExpansionPanelList(
+                  //   expansionCallback: (int index, bool isExpanded) {
+                  //     setState(() {
+                  //       _data[index].isExpanded = !isExpanded;
+                  //     });
+                  //   },
+                  //   children: _data.map<ExpansionPanel>((Item item) {
+                  //     return ExpansionPanel(
+                  //       headerBuilder: (BuildContext context, bool isExpanded) {
+                  //         return ListTile(
+                  //           title: Text(item.headerValue),
+                  //         );
+                  //       },
+                  //       body: ListTile(
+                  //           title: Text(item.expandedValue),
+                  //           subtitle: const Text(
+                  //               'To delete this panel, tap the trash can icon'),
+                  //           trailing: const Icon(Icons.delete),
+                  //           onTap: () {
+                  //             setState(() {
+                  //               _data.removeWhere(
+                  //                   (Item currentItem) => item == currentItem);
+                  //             });
+                  //           }),
+                  //       isExpanded: item.isExpanded,
+                  //     );
+                  //   }).toList(),
+                  // )
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    width: 330,
+                    height: 150,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.blue,
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/eleph.PNG"))),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              imga = 1;
+                            });
+                          },
+                          child: Text("Plan 1")),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              imga = 2;
+                            });
+                          },
+                          child: Text("Plan 2")),
+                    ],
+                  ),
+                  Container(
+                    height: 400,
+                    width: 250,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: AssetImage("assets/plan${imga}.PNG"),
+                    )),
+                  )
+                ],
               ),
             ),
-            ExpansionPanelList(
-              expansionCallback: (int index, bool isExpanded) {
-                setState(() {
-                  _data[index].isExpanded = !isExpanded;
-                });
-              },
-              children: _data.map<ExpansionPanel>((Item item) {
-                return ExpansionPanel(
-                  headerBuilder: (BuildContext context, bool isExpanded) {
-                    return ListTile(
-                      title: Text(item.headerValue),
-                    );
-                  },
-                  body: ListTile(
-                      title: Text(item.expandedValue),
-                      subtitle: const Text(
-                          'To delete this panel, tap the trash can icon'),
-                      trailing: const Icon(Icons.delete),
-                      onTap: () {
-                        setState(() {
-                          _data.removeWhere(
-                              (Item currentItem) => item == currentItem);
-                        });
-                      }),
-                  isExpanded: item.isExpanded,
-                );
-              }).toList(),
-            )
           ],
         ),
       ),
