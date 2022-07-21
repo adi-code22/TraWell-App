@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:trawell/views/homescreen.dart';
+import 'package:trawell/views/market.dart';
 import 'package:trawell/views/speakNative.dart';
 import 'firebase_options.dart';
 

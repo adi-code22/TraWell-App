@@ -7,6 +7,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:trawell/main.dart';
+import 'package:trawell/models/api_service.dart';
+import 'package:trawell/models/market_model.dart';
 import 'package:trawell/views/locatenative.dart';
 import 'package:trawell/views/market.dart';
 import 'package:trawell/views/scanScreen.dart';
@@ -89,10 +91,21 @@ class _MyHomePageState extends State<MyHomePage> {
     await GetAddressFromLatLong(pos);
   }
 
+  late List<UserModel>? _userModel = [];
+  bool selected = false;
+  int itemNumber = 0;
+  List<String> buyList = [];
+
+  void _getData() async {
+    _userModel = (await ApiService().getUsers())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _getData();
 
     initialiseLocation();
 
@@ -222,8 +235,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               fontSize: 23, color: Colors.white),
                         ),
                         Text(
-                          "Thrissur",
-                          //place.subAdministrativeArea.toString(),
+                          //"Thrissur",
+                          place.subAdministrativeArea.toString(),
                           style: GoogleFonts.poppins(
                               fontSize: 23,
                               color: Colors.white,
@@ -237,8 +250,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   fontSize: 13, color: Colors.white),
                             ),
                             Text(
-                              "680009",
-                              //place.postalCode.toString(),
+                              //"680009",
+                              place.postalCode.toString(),
                               style: GoogleFonts.poppins(
                                   fontSize: 13,
                                   color: Colors.white,
@@ -490,59 +503,194 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 420,
                     padding: const EdgeInsets.all(20.0),
                     child: SingleChildScrollView(
-                      child: Column(children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 150,
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            // Container(
-                            //   decoration: BoxDecoration(
-                            //       color: Colors.blue,
-                            //       borderRadius: BorderRadius.circular(16)),
-                            //   width: 130,
-                            //   height: 200,
-                            //   child: Builder(
-                            //     builder: (context) {
-                            //       return Container(
-                            //         child: Image(
-                            //             image: NetworkImage(
-                            //                 "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg")),
-                            //       );
-                            //     }
-                            //   ),
-                            // )
-                            marketCard(
-                                url:
-                                    "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg",
-                                name: "Coconut Oil",
-                                sub: "250 ml"),
-                            marketCard(
-                                url:
-                                    "https://m.media-amazon.com/images/I/71l5T4sy6QL._UL1500_.jpg",
-                                name: "Slipper",
-                                sub: "Thrissur"),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            marketCard(
-                                url:
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc7aQH_vy7yfJ7xrmVSnDh9mKr93HXdHtj5A&usqp=CAU",
-                                name: "Soap",
-                                sub: "Irinjalakuda")
-                          ],
-                        )
-                      ]),
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: _userModel!.length,
+                        itemBuilder: (context, index) {
+                          // return ListTile(
+                          //   selectedColor: Colors.amber,
+                          //   subtitle: Text(_userModel![index].description.toString()),
+                          //   title: Text(_userModel![index].itemName.toString()),
+                          //   leading: CircleAvatar(
+                          //     backgroundImage: NetworkImage(_userModel![index].img),
+                          //   ),
+                          //   trailing: Text(
+                          //     "₹" + _userModel![index].price.toString(),
+                          //     style: TextStyle(color: Colors.green, fontSize: 20),
+                          //   ),
+                          // );
+
+                          return GestureDetector(
+                            onTap: () {
+                              print(_userModel![index].description);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                height: 180,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Container(
+                                          width: 130,
+                                          // color: Colors.black,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      _userModel![index].img))),
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      // mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          _userModel![index].itemName,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Container(
+                                          width: 185,
+                                          child: Text(
+                                            _userModel![index].description,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 0,
+                                        ),
+                                        // Row(
+                                        //   children: [
+                                        //     SizedBox(
+                                        //       width: 120,
+                                        //     ),
+                                        //     ElevatedButton(
+                                        //       onPressed: () async {
+                                        //         setState(() {
+                                        //           itemNumber++;
+                                        //         });
+                                        //         buyList.add(_userModel![index].itemId);
+                                        //         await ApiServicePost()
+                                        //             .post(_userModel![index].itemId.toString());
+                                        //         print(_userModel![index].itemId.toString());
+                                        //         showNotification();
+                                        //       },
+                                        //       child: Text("BUY"),
+                                        //       style: ElevatedButton.styleFrom(
+                                        //           primary: Theme.of(context).primaryColorLight),
+                                        //     )
+                                        //   ],
+                                        // ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 122.0),
+                                          child: Text(
+                                            "₹" +
+                                                _userModel![index]
+                                                    .price
+                                                    .toString(),
+                                            style: TextStyle(
+                                                fontSize: 35,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.green),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 185,
+                                          child: Row(
+                                            children: [
+                                              Icon(Icons.pin_drop),
+                                              Text(
+                                                _userModel![index].location,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      // child: Column(children: [
+                      //   Row(
+                      //     children: [
+                      //       Container(
+                      //         width: 150,
+                      //       )
+                      //     ],
+                      //   ),
+                      //   Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //     children: [
+                      //       // Container(
+                      //       //   decoration: BoxDecoration(
+                      //       //       color: Colors.blue,
+                      //       //       borderRadius: BorderRadius.circular(16)),
+                      //       //   width: 130,
+                      //       //   height: 200,
+                      //       //   child: Builder(
+                      //       //     builder: (context) {
+                      //       //       return Container(
+                      //       //         child: Image(
+                      //       //             image: NetworkImage(
+                      //       //                 "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg")),
+                      //       //       );
+                      //       //     }
+                      //       //   ),
+                      //       // )
+                      //       marketCard(
+                      //           url:
+                      //               "https://images.marico.in/uploads/img-0010-shutterstock-1549188695-4610.jpg",
+                      //           name: "Coconut Oil",
+                      //           sub: "250 ml"),
+                      //       marketCard(
+                      //           url:
+                      //               "https://m.media-amazon.com/images/I/71l5T4sy6QL._UL1500_.jpg",
+                      //           name: "Slipper",
+                      //           sub: "Thrissur"),
+                      //     ],
+                      //   ),
+                      //   SizedBox(
+                      //     height: 10,
+                      //   ),
+                      //   Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      //     children: [
+                      //       marketCard(
+                      //           url:
+                      //               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc7aQH_vy7yfJ7xrmVSnDh9mKr93HXdHtj5A&usqp=CAU",
+                      //           name: "Soap",
+                      //           sub: "Irinjalakuda")
+                      //     ],
+                      //   )
+                      // ]),
                     )),
 
                 SizedBox(height: 00),

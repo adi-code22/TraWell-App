@@ -318,6 +318,9 @@ class _DiseaseDetectionState extends State<ScanScreen> {
                                                                   _outputs[0][
                                                                           "label"]
                                                                       .toString()
+                                                                      .substring(
+                                                                        2,
+                                                                      )
                                                                       .toUpperCase(),
                                                                   style: TextStyle(
                                                                       color: Theme.of(
@@ -326,6 +329,10 @@ class _DiseaseDetectionState extends State<ScanScreen> {
                                                                       fontSize:
                                                                           20),
                                                                 ),
+                                                                // Text(_outputs[0]
+                                                                //         [
+                                                                //         "confidence"]
+                                                                //     .toString()),
 
                                                                 //_outputs[0]["label"]=="2 banana_black_sigatoka"Text('Good')?null:
                                                                 Text(_outputs[0]
