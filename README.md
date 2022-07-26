@@ -14,7 +14,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/adi-code22/TraWell-App">
-    <img src="assets/logo.png" alt="Logo" width="200" height="200">
+    <img src="assets/git_images/logo.PNG" alt="Logo" width="800" height="287">
   </a>
 
 <h3 align="center">TraWell App</h3>
@@ -78,7 +78,11 @@
 #### Scan monument is basically an ML powered Image Classifier which detects monuments and reads out its historical and heirarchial importance with the help of a text to speach engine.
 
 [![SpeakNative][speak]](https://example.com)
-#### Scan monument is basically an ML powered Image Classifier which detects monuments and reads out its historical and heirarchial importance with the help of a text to speach engine.
+#### Speak native is a voice to voice language translator powered by google translate.
+
+[![Card and Market][card]](https://example.com)
+[![Card and Market][locate]](https://example.com)
+
 
 
 
@@ -110,37 +114,27 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* flutter
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/adi-code22/TraWell-App.git
    ```
-3. Install NPM packages
+2. Direct to root folder and run flutter project
    ```sh
-   npm install
+   flutter run
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -173,7 +167,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE.md` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -192,12 +186,6 @@ Project Link: [https://github.com/adi-code22/TraWell-App](https://github.com/adi
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -221,6 +209,8 @@ Project Link: [https://github.com/adi-code22/TraWell-App](https://github.com/adi
 [solution]: assets/git_images/solution.PNG
 [scan]: assets/git_images/scanMonument.PNG
 [speak]: assets/git_images/speakNa.PNG
+[card]: assets/git_images/trawell%2Bmarket.PNG
+[locate]: assets/git_images/suggestplan%2Blocate.PNG
 [Flutter]: https://img.shields.io/badge/Flutter-000000?style=for-the-badge&logo=flutter&logoColor=blue
 [Flutter-url]: https://flutter.dev/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
