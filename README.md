@@ -150,11 +150,6 @@ Project Link: [https://github.com/adi-code22/TraWell-App](https://github.com/adi
 
 
 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/adi-code22/TraWell-App.svg?style=for-the-badge
