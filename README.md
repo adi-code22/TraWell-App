@@ -25,6 +25,7 @@
 
   <p align="center">
     your Smart trawell buddy, Powered by AI.
+    <h4 align="center">Winner, RIBC Rural Agri-Tech Hackathon 2022, Kerala Startup Mission, ICAR-CPCRI</h4>
     <br />
     <br />
     <a href="https://www.youtube.com/watch?v=dg3E_iASbt8">View Demo</a>
