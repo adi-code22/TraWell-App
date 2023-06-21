@@ -234,7 +234,7 @@ class _MarketPageState extends State<MarketPage> {
                                 _userModel![index].location,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: 10,
                                 ),
                               ),
                             ],

@@ -41,7 +41,7 @@ class _LocateNativeState extends State<LocateNative> {
                   width: 400,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.fill, image: AssetImage("assets/bg2.PNG")),
+                        fit: BoxFit.fill, image: AssetImage("assets/bg22.PNG")),
                   ),
                 ),
 

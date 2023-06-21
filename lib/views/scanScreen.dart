@@ -18,12 +18,12 @@ class ScanScreen extends StatefulWidget {
 class _DiseaseDetectionState extends State<ScanScreen> {
   List _outputs = [];
   List<String> speach = [
-    "Vadakkumnathan Temple is an ancient Hindu temple dedicated to Shiva at city of Thrissur, of Kerala state in India. This temple is a classical example of the architectural style of Kerala and has one monumental tower on each of the four sides in addition to a kuttambalam. Mural paintings depicting various scenes from the Mahabharata can be seen inside the temple. The temple, along with the mural paintings, has been declared as a National Monument by India under the AMASR Act.",
-    "Rama Varma IX, popularly known as Sakthan Thampuran (Sakthan meaning powerful), was the ruler of the Kingdom of Cochin. The current southern Indian city of Kochi was part of the erstwhile princely state of Kochi. He resided at Vadakkechira Palace in Thrissur. The city of Thrissur is referred to as the Cultural Capital of Kerala owing to its many traditional festivals and historic temples. Sakthan Thampuran is considered the architect of the city of Thrissur. The festival Thrissur Pooram was started by him."
+    "Athirappilly Falls, is situated in Athirappilly Panchayat, Chalakudy Taluk, Thrissur District of Kerala, India on the Chalakudy River, which originates from the upper reaches of the Western Ghats at the entrance to the Sholayar ranges.It is the largest waterfall in Kerala, which stands tall at 80 feet.",
+    "The significance of Cheraman Juma Majsid in the Muziris Heritage Project lies in the fact that it is the first mosque in India. Built in 629 AD by Malik Ibn Dinar it is located in the district of Thrissur in Kerala, on the Paravur-Kodungallur road.The oral tradition is that Cheraman Perumal, the Chera king, went to Arabia where he met the Prophet and embraced Islam. From there he had sent letters with Malik Ibn Dinar to his relatives in Kerala, asking them to be courteous to the latter."
   ];
   XFile? _image;
   bool _loading = false;
-  int _selectedIndex = 1;
+  // int _selectedIndex = 1;
   bool isPlaying = false;
 
   FlutterTts flutterTts = FlutterTts();
@@ -40,8 +40,9 @@ class _DiseaseDetectionState extends State<ScanScreen> {
 
   loadModel() async {
     await Tflite.loadModel(
-      model: true ? "assets/unquant2.tflite" : "assets/quantized.tflite",
-      labels: "assets/labels2.txt",
+      model:
+          false ? "assets/unquant2.tflite" : "assets/model_new_unquant.tflite",
+      labels: "assets/model_new_unquant_labels.txt",
       numThreads: 1,
     );
   }
@@ -83,18 +84,18 @@ class _DiseaseDetectionState extends State<ScanScreen> {
     placeholder: AssetImage("assets/bot.png"),
   ));
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    if (index == 0) {
-      captureImage();
-    } else if (index == 2) {
-      pickImage();
-    } else if (index == 1) {
-      Navigator.pushNamed(context, '/home');
-    }
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  //   if (index == 0) {
+  //     captureImage();
+  //   } else if (index == 2) {
+  //     pickImage();
+  //   } else if (index == 1) {
+  //     Navigator.pushNamed(context, '/home');
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -226,149 +227,137 @@ class _DiseaseDetectionState extends State<ScanScreen> {
                                 child: Container(
                                   width: 320,
                                   color: Colors.grey.withOpacity(0.2),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      _loading
-                                          ? Container(
-                                              height: 300,
-                                              width: 300,
-                                            )
-                                          : Container(
-                                              margin: const EdgeInsets.all(20),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  _image == null
-                                                      ? Container()
-                                                      : Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              16),
-                                                                  color: Colors
-                                                                      .blue,
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                    image:
-                                                                        FileImage(
-                                                                      File(
-                                                                        _image!
-                                                                            .path,
-                                                                      ),
-                                                                    ),
-                                                                  )),
-                                                          width: 300,
-                                                          height: 300,
+                                  child: _outputs[0]["confidence"] > 0.975
+                                      ? Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            _loading
+                                                ? Container(
+                                                    height: 300,
+                                                    width: 300,
+                                                  )
+                                                : Container(
+                                                    margin:
+                                                        const EdgeInsets.all(
+                                                            20),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        _image == null
+                                                            ? Container()
+                                                            : Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                16),
+                                                                        color: Colors
+                                                                            .blue,
+                                                                        image:
+                                                                            DecorationImage(
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                          image:
+                                                                              FileImage(
+                                                                            File(
+                                                                              _image!.path,
+                                                                            ),
+                                                                          ),
+                                                                        )),
+                                                                width: 300,
+                                                                height: 300,
+                                                              ),
+                                                        const SizedBox(
+                                                          height: 20,
                                                         ),
-                                                  const SizedBox(
-                                                    height: 20,
-                                                  ),
-                                                  _image == null
-                                                      ? Container()
-                                                      : _outputs != null
-                                                          ? Column(
-                                                              children: [
-                                                                Align(
-                                                                  alignment:
-                                                                      Alignment
-                                                                          .centerLeft,
-                                                                  child:
-                                                                      ElevatedButton(
-                                                                    style: ButtonStyle(
-                                                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                                                            borderRadius: const BorderRadius.only(
-                                                                                topLeft: Radius.circular(0),
-                                                                                bottomLeft: Radius.circular(0),
-                                                                                topRight: Radius.circular(16),
-                                                                                bottomRight: Radius.circular(16)),
-                                                                            side: BorderSide(color: Theme.of(context).primaryColor)))),
-                                                                    onPressed:
-                                                                        () {
-                                                                      isPlaying
-                                                                          ? stop()
-                                                                          : speak(speach[int.parse(_outputs[0]["label"].toString().substring(
-                                                                              0,
-                                                                              1))]);
+                                                        _image == null
+                                                            ? Container()
+                                                            : _outputs != null
+                                                                ? Column(
+                                                                    children: [
+                                                                      Align(
+                                                                        alignment:
+                                                                            Alignment.centerLeft,
+                                                                        child:
+                                                                            ElevatedButton(
+                                                                          style:
+                                                                              ButtonStyle(shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: const BorderRadius.only(topLeft: Radius.circular(0), bottomLeft: Radius.circular(0), topRight: Radius.circular(16), bottomRight: Radius.circular(16)), side: BorderSide(color: Theme.of(context).primaryColor)))),
+                                                                          onPressed:
+                                                                              () {
+                                                                            isPlaying
+                                                                                ? stop()
+                                                                                : speak(speach[int.parse(_outputs[0]["label"].toString().substring(0, 1))]);
 
-                                                                      setState(
-                                                                          () {
-                                                                        isPlaying =
-                                                                            !isPlaying;
-                                                                      });
-                                                                    },
-                                                                    child: !isPlaying
-                                                                        ? const Text(
-                                                                            "Read out 🔊")
-                                                                        : const Text(
-                                                                            "Stop 🛑"),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  _outputs[0][
-                                                                          "label"]
-                                                                      .toString()
-                                                                      .substring(
-                                                                        2,
-                                                                      )
-                                                                      .toUpperCase(),
-                                                                  style: TextStyle(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      fontSize:
-                                                                          20),
-                                                                ),
-                                                                // Text(_outputs[0]
-                                                                //         [
-                                                                //         "confidence"]
-                                                                //     .toString()),
+                                                                            setState(() {
+                                                                              isPlaying = !isPlaying;
+                                                                            });
+                                                                          },
+                                                                          child: !isPlaying
+                                                                              ? const Text("Read out 🔊")
+                                                                              : const Text("Stop 🛑"),
+                                                                        ),
+                                                                      ),
+                                                                      Text(
+                                                                        _outputs[0]["label"]
+                                                                            .toString()
+                                                                            .substring(
+                                                                              2,
+                                                                            )
+                                                                            .toUpperCase(),
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Theme.of(context).primaryColor,
+                                                                            fontSize: 20),
+                                                                      ),
+                                                                      Text(_outputs[0]
+                                                                              [
+                                                                              "confidence"]
+                                                                          .toString()),
 
-                                                                //_outputs[0]["label"]=="2 banana_black_sigatoka"Text('Good')?null:
-                                                                Text(_outputs[0]
-                                                                            [
-                                                                            "label"] ==
-                                                                        "0 Sri Vadakkunnathan Temple"
-                                                                    ? speach[0]
-                                                                    : _outputs[0]["label"] ==
-                                                                            "1 Sakthan Thampuran"
-                                                                        ? speach[
-                                                                            1]
-                                                                        : ''),
-                                                              ],
-                                                            )
-                                                          : Container(
-                                                              child: const Text(
-                                                                  "")),
-                                                  Column(
-                                                    children: [
-                                                      Container(
-                                                        height: 3,
-                                                      ),
-                                                      Container(
-                                                        height: 3,
-                                                      ),
-                                                    ],
+                                                                      //_outputs[0]["label"]=="2 banana_black_sigatoka"Text('Good')?null:
+                                                                      Text(_outputs[0]["label"] ==
+                                                                              "0 Athirapilly"
+                                                                          ? speach[
+                                                                              0]
+                                                                          : _outputs[0]["label"] == "1 Cheraman Mosque"
+                                                                              ? speach[1]
+                                                                              : ''),
+                                                                    ],
+                                                                  )
+                                                                : Container(
+                                                                    child:
+                                                                        const Text(
+                                                                            "")),
+                                                        Column(
+                                                          children: [
+                                                            Container(
+                                                              height: 3,
+                                                            ),
+                                                            Container(
+                                                              height: 3,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                      // SizedBox(
-                                      //   height:
-                                      //       MediaQuery.of(context).size.height * 0.01,
-                                      // ),
-                                    ],
-                                  ),
+                                            // SizedBox(
+                                            //   height:
+                                            //       MediaQuery.of(context).size.height * 0.01,
+                                            // ),
+                                          ],
+                                        )
+                                      : Text("Can't Recognize the Image"),
                                 ),
                               ),
                             ),

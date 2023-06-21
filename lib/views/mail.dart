@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
+//import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SentMail extends StatefulWidget {
@@ -28,29 +28,29 @@ class _MyAppState extends State<SentMail> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Future<void> send() async {
-    final Email email = Email(
-      body: _bodyController.text,
-      subject: _subjectController.text,
-      recipients: [_recipientController.text],
-      attachmentPaths: attachments,
-      isHTML: isHTML,
-    );
+  // Future<void> send() async {
+  //   final Email email = Email(
+  //     body: _bodyController.text,
+  //     subject: _subjectController.text,
+  //     recipients: [_recipientController.text],
+  //     attachmentPaths: attachments,
+  //     isHTML: isHTML,
+  //   );
 
-    String platformResponse = "";
+  //   String platformResponse = "";
 
-    try {
-      await FlutterEmailSender.send(email);
-    } catch (error) {
-      platformResponse = error.toString();
-    }
+  //   // try {
+  //   //   await FlutterEmailSender.send(email);
+  //   // } catch (error) {
+  //   //   platformResponse = error.toString();
+  //   // }
 
-    if (!mounted) return;
+  //   if (!mounted) return;
 
-    _scaffoldKey.currentState!.showSnackBar(SnackBar(
-      content: Text(platformResponse),
-    ));
-  }
+  //   // _scaffoldKey.currentState!.showSnackBar(SnackBar(
+  //   //   content: Text(platformResponse),
+  //   // ));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _MyAppState extends State<SentMail> {
           actions: <Widget>[
             IconButton(
               color: Theme.of(context).primaryColor,
-              onPressed: send,
+              onPressed: () {},
               icon: Icon(Icons.send),
             )
           ],

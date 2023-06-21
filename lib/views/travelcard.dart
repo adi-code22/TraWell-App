@@ -74,7 +74,7 @@ class _TravelCardState extends State<TravelCard> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               height: 400,
-                              width: 350,
+                              width: 375,
                               decoration: BoxDecoration(
                                 color: Colors.grey.withOpacity(0.3),
                                 // border: Border.all(
