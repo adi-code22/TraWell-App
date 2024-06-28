@@ -65,6 +65,10 @@ class MyApp extends StatelessWidget {
 }
 
 
+//your Smart travel buddy, powered by AI. A tourist guide which aids in easy navigation, communication and guidance throughout the journey.
+//https://trawel01.netlify.app/
+
+
 // <div id="top"></div>
 
 
